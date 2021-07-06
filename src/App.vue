@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>Current Value {{ getValue }}</div>
+    <div>Current Value {{ getCounter }}</div>
     <div id="navbar">
       <router-link to="/old-counter">Old Counter</router-link><br />
       <router-link to="/modern-counter">Modern Counter</router-link><br />
@@ -14,8 +14,26 @@
 
 <script>
 
+import { useStore } from 'vuex'
+
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+
+    let store = useStore()
+
+    let counter = store.getters.getValue
+
+    return {
+      store,
+      counter
+    }
+  },
+  computed: {
+    getCounter() {
+      return this.store.getters.getValue
+    }
+  }
 }
 </script>
 

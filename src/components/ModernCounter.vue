@@ -3,13 +3,13 @@
         <h2>Modern Counter</h2>
         <input ref="input" type="number" />
         <div>
-            <button>
+            <button @click="increment">
                 Increment
             </button>
-            <button>
+            <button @click="decrement">
                 Decrement
             </button>
-            <button>
+            <button @click="reset">
                 Reset
             </button>
         </div>
@@ -18,23 +18,33 @@
 
 <script>
 
+import { useStore } from 'vuex'
+
 export default {
 
     data() {
+        let store = useStore()
+
         let input
 
         return {
+            store,
             input
         }
     },
     mounted() {
         this.input = this.$refs['input']
     },
-    computed: {
-
-    },
     methods: {
-
+        increment() {
+            this.store.commit('incrementValue', this.input.value)
+        },
+        decrement() {
+            this.store.commit('decrementValue', this.input.value)
+        },
+        reset() {
+            this.store.commit('resetValue')
+        }
     }
 }
 
